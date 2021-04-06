@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c8b0e036ddc84a0db530f9a5131756bf" Name="Diagram1">
+        <EntityTypeShape EntityType="PruebaModel.Banco" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PruebaModel.Cliente" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PruebaModel.CuentaCliente" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PruebaModel.transaccion" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PruebaModel.vw_cuentacliente" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="PruebaModel.FK__CuentaCli__Banco__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="PruebaModel.FK__CuentaCli__Clien__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="PruebaModel.FK__transacci__idcli__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="PruebaModel.FK__transacci__idcue__1920BF5C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

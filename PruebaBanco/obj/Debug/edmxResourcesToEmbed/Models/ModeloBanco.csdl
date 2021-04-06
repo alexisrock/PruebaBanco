@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombrebanco" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CuentaCliente" Relationship="Self.FK__CuentaCli__Banco__15502E78" FromRole="Banco" ToRole="CuentaCliente" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="documento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nombres" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="telefono" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="cobrogm" Type="Boolean" />
+    <NavigationProperty Name="CuentaCliente" Relationship="Self.FK__CuentaCli__Clien__145C0A3F" FromRole="Cliente" ToRole="CuentaCliente" />
+    <NavigationProperty Name="transaccion" Relationship="Self.FK__transacci__idcli__182C9B23" FromRole="Cliente" ToRole="transaccion" />
+  </EntityType>
+  <EntityType Name="CuentaCliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="numcuenta" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Cliente" Type="Int32" />
+    <Property Name="saldo" Type="Int64" />
+    <Property Name="Banco" Type="Int32" />
+    <NavigationProperty Name="Banco1" Relationship="Self.FK__CuentaCli__Banco__15502E78" FromRole="CuentaCliente" ToRole="Banco" />
+    <NavigationProperty Name="Cliente1" Relationship="Self.FK__CuentaCli__Clien__145C0A3F" FromRole="CuentaCliente" ToRole="Cliente" />
+    <NavigationProperty Name="transaccion" Relationship="Self.FK__transacci__idcue__1920BF5C" FromRole="CuentaCliente" ToRole="transaccion" />
+  </EntityType>
+  <EntityType Name="transaccion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idcliente" Type="Int32" />
+    <Property Name="idcuenta" Type="Int32" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+    <Property Name="valor" Type="Int32" />
+    <Property Name="operacion" Type="Int32" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK__transacci__idcli__182C9B23" FromRole="transaccion" ToRole="Cliente" />
+    <NavigationProperty Name="CuentaCliente" Relationship="Self.FK__transacci__idcue__1920BF5C" FromRole="transaccion" ToRole="CuentaCliente" />
+  </EntityType>
+  <EntityType Name="vw_cuentacliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="numcuenta" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Cliente" Type="Int32" />
+    <Property Name="saldo" Type="Int64" />
+    <Property Name="Banco" Type="Int32" />
+  </EntityType>
+  <Association Name="FK__CuentaCli__Banco__15502E78">
+    <End Role="Banco" Type="Self.Banco" Multiplicity="0..1" />
+    <End Role="CuentaCliente" Type="Self.CuentaCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Banco">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CuentaCliente">
+        <PropertyRef Name="Banco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CuentaCli__Clien__145C0A3F">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="CuentaCliente" Type="Self.CuentaCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CuentaCliente">
+        <PropertyRef Name="Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__transacci__idcli__182C9B23">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="transaccion" Type="Self.transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="transaccion">
+        <PropertyRef Name="idcliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__transacci__idcue__1920BF5C">
+    <End Role="CuentaCliente" Type="Self.CuentaCliente" Multiplicity="0..1" />
+    <End Role="transaccion" Type="Self.transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaCliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="transaccion">
+        <PropertyRef Name="idcuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BancoContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Banco" EntityType="Self.Banco" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="CuentaCliente" EntityType="Self.CuentaCliente" />
+    <EntitySet Name="transaccion" EntityType="Self.transaccion" />
+    <EntitySet Name="vw_cuentacliente" EntityType="Self.vw_cuentacliente" />
+    <AssociationSet Name="FK__CuentaCli__Banco__15502E78" Association="Self.FK__CuentaCli__Banco__15502E78">
+      <End Role="Banco" EntitySet="Banco" />
+      <End Role="CuentaCliente" EntitySet="CuentaCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CuentaCli__Clien__145C0A3F" Association="Self.FK__CuentaCli__Clien__145C0A3F">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="CuentaCliente" EntitySet="CuentaCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK__transacci__idcli__182C9B23" Association="Self.FK__transacci__idcli__182C9B23">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="transaccion" EntitySet="transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__transacci__idcue__1920BF5C" Association="Self.FK__transacci__idcue__1920BF5C">
+      <End Role="CuentaCliente" EntitySet="CuentaCliente" />
+      <End Role="transaccion" EntitySet="transaccion" />
+    </AssociationSet>
+    <FunctionImport Name="spvalor" ReturnType="Collection(Int32)">
+      <Parameter Name="valor" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

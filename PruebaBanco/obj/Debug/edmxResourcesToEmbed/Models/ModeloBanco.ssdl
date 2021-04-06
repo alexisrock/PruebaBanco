@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombrebanco" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="documento" Type="nvarchar" MaxLength="50" />
+    <Property Name="nombres" Type="nvarchar" MaxLength="200" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="11" />
+    <Property Name="cobrogm" Type="bit" />
+  </EntityType>
+  <EntityType Name="CuentaCliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numcuenta" Type="nvarchar" MaxLength="200" />
+    <Property Name="Cliente" Type="int" />
+    <Property Name="saldo" Type="bigint" />
+    <Property Name="Banco" Type="int" />
+  </EntityType>
+  <EntityType Name="transaccion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idcliente" Type="int" />
+    <Property Name="idcuenta" Type="int" />
+    <Property Name="fecha" Type="datetime" />
+    <Property Name="valor" Type="int" />
+    <Property Name="operacion" Type="int" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Prueba.dbo.vw_cuentacliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="vw_cuentacliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numcuenta" Type="nvarchar" MaxLength="200" />
+    <Property Name="Cliente" Type="int" />
+    <Property Name="saldo" Type="bigint" />
+    <Property Name="Banco" Type="int" />
+  </EntityType>
+  <Association Name="FK__CuentaCli__Banco__15502E78">
+    <End Role="Banco" Type="Self.Banco" Multiplicity="0..1" />
+    <End Role="CuentaCliente" Type="Self.CuentaCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Banco">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CuentaCliente">
+        <PropertyRef Name="Banco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CuentaCli__Clien__145C0A3F">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="CuentaCliente" Type="Self.CuentaCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CuentaCliente">
+        <PropertyRef Name="Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__transacci__idcli__182C9B23">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="transaccion" Type="Self.transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="transaccion">
+        <PropertyRef Name="idcliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__transacci__idcue__1920BF5C">
+    <End Role="CuentaCliente" Type="Self.CuentaCliente" Multiplicity="0..1" />
+    <End Role="transaccion" Type="Self.transaccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaCliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="transaccion">
+        <PropertyRef Name="idcuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spvalor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="valor" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="PruebaModelStoreContainer">
+    <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CuentaCliente" EntityType="Self.CuentaCliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="transaccion" EntityType="Self.transaccion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_cuentacliente" EntityType="Self.vw_cuentacliente" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_cuentacliente].[id] AS [id], 
+    [vw_cuentacliente].[numcuenta] AS [numcuenta], 
+    [vw_cuentacliente].[Cliente] AS [Cliente], 
+    [vw_cuentacliente].[saldo] AS [saldo], 
+    [vw_cuentacliente].[Banco] AS [Banco]
+    FROM [dbo].[vw_cuentacliente] AS [vw_cuentacliente]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__CuentaCli__Banco__15502E78" Association="Self.FK__CuentaCli__Banco__15502E78">
+      <End Role="Banco" EntitySet="Banco" />
+      <End Role="CuentaCliente" EntitySet="CuentaCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CuentaCli__Clien__145C0A3F" Association="Self.FK__CuentaCli__Clien__145C0A3F">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="CuentaCliente" EntitySet="CuentaCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK__transacci__idcli__182C9B23" Association="Self.FK__transacci__idcli__182C9B23">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="transaccion" EntitySet="transaccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__transacci__idcue__1920BF5C" Association="Self.FK__transacci__idcue__1920BF5C">
+      <End Role="CuentaCliente" EntitySet="CuentaCliente" />
+      <End Role="transaccion" EntitySet="transaccion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

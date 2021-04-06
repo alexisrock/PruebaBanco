@@ -1,0 +1,11 @@
+npm install -g @angular/cli@latest --> instalar angular de manera global
+
+npm cache clean --force --> limpiare la cache
+
+
+
+
+ng new "Nombre proytecto"--> crear un proyecto en angular
+ng serve --> iniciar el servidor
+
+$ ng g component Components/banco --> crear los componente vistas y estilos

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PruebaModelStoreContainer" CdmEntityContainer="BancoContext">
+    <EntitySetMapping Name="Banco">
+      <EntityTypeMapping TypeName="PruebaModel.Banco">
+        <MappingFragment StoreEntitySet="Banco">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombrebanco" ColumnName="nombrebanco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="PruebaModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="cobrogm" ColumnName="cobrogm" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CuentaCliente">
+      <EntityTypeMapping TypeName="PruebaModel.CuentaCliente">
+        <MappingFragment StoreEntitySet="CuentaCliente">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="numcuenta" ColumnName="numcuenta" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="saldo" ColumnName="saldo" />
+          <ScalarProperty Name="Banco" ColumnName="Banco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transaccion">
+      <EntityTypeMapping TypeName="PruebaModel.transaccion">
+        <MappingFragment StoreEntitySet="transaccion">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+          <ScalarProperty Name="idcuenta" ColumnName="idcuenta" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="operacion" ColumnName="operacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_cuentacliente">
+      <EntityTypeMapping TypeName="PruebaModel.vw_cuentacliente">
+        <MappingFragment StoreEntitySet="vw_cuentacliente">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="numcuenta" ColumnName="numcuenta" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="saldo" ColumnName="saldo" />
+          <ScalarProperty Name="Banco" ColumnName="Banco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spvalor" FunctionName="PruebaModel.Store.spvalor" />
+  </EntityContainerMapping>
+</Mapping>
